@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
 import { personalInfo } from "@/data/resume";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: {
@@ -79,6 +80,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </SmoothScrollWrapper>
+        <Analytics />
       </body>
     </html>
   );
