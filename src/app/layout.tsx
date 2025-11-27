@@ -72,7 +72,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-bg-midnight text-white font-body antialiased overflow-x-hidden selection:bg-primary-1/30 selection:text-white" suppressHydrationWarning>
+      <body className="relative bg-bg-midnight text-white font-body antialiased overflow-x-hidden selection:bg-primary-1/30 selection:text-white" suppressHydrationWarning>
         <SmoothScrollWrapper>
           <Navbar />
           <main className="relative z-0 flex flex-col min-h-screen">
@@ -80,7 +80,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </SmoothScrollWrapper>
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   );

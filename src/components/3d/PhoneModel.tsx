@@ -3,7 +3,7 @@
 import { useGLTF, useTexture, Center } from "@react-three/drei";
 import { useRef } from "react";
 import { Group, DoubleSide } from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 
 // Preload the model
 useGLTF.preload("/models/samsung_s24_ultra.glb");
@@ -13,10 +13,11 @@ export default function PhoneModel({ screenTexture }: { screenTexture: string })
     const { scene } = useGLTF("/models/samsung_s24_ultra.glb");
 
     // Load texture with high quality settings
+    const { gl } = useThree();
     const screen = useTexture(screenTexture);
     screen.flipY = false;
-    // Improve texture quality
-    screen.anisotropy = 16; // Maximum anisotropic filtering for sharper textures
+    // Improve texture quality safely
+    screen.anisotropy = Math.min(16, gl.capabilities.getMaxAnisotropy());
     screen.generateMipmaps = true;
 
     useFrame((state) => {

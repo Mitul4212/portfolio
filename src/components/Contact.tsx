@@ -1,29 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SceneWrapper from "./SceneWrapper";
 import { personalInfo } from "@/data/resume";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { Canvas } from "@react-three/fiber";
-import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 
-function Planet() {
-    return (
-        <Sphere args={[1, 64, 64]} scale={2.5}>
-            <MeshDistortMaterial
-                color="#7B2FFF"
-                attach="material"
-                distort={0.4}
-                speed={2}
-                roughness={0.2}
-                metalness={0.8}
-            />
-        </Sphere>
-    );
-}
+
+
 
 export default function Contact() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -46,14 +41,7 @@ export default function Contact() {
 
     return (
         <SceneWrapper id="contact" className="py-20 sm:py-24 md:py-32 bg-bg-midnight relative overflow-hidden">
-            {/* Background Planet - Hidden on mobile for performance */}
-            <div className="absolute right-[-20%] top-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-20 pointer-events-none hidden md:block">
-                <Canvas>
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[5, 5, 5]} intensity={1} />
-                    <Planet />
-                </Canvas>
-            </div>
+            {/* Background Planet Removed for Optimization */}
 
             <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-10 sm:gap-12 md:gap-16">

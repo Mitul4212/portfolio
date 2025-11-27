@@ -2,6 +2,8 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const initSmoothScroll = () => {
     const lenis = new Lenis({
         duration: 1.2,
